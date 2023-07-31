@@ -33,28 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-
-  final myController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    myController.addListener(_printLatestValue);
-  }
-
-  @override
-  void dispose() {
-
-    myController.dispose();
-    super.dispose();
-  }
-
-  void _printLatestValue(){
-    print('papayacoders : Second field value is ${myController.text}');
-
-  }
-
-
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -64,86 +43,52 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
           padding: EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              ElevatedButton(
-                child: Text("Subscribe"),
-                onPressed: (){
-                  final snackbar = SnackBar(content:
-                  const Text("Subsribe : Papaya Coders"),
-                  action: SnackBarAction(
-                    label: "Subscribe",
-                    onPressed: (){
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Enter your name."
+                  ),
+                  validator: (value){
+                    if(value == null || value.isEmpty){
+                      return "Please enter your name.";
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20,),
 
-                      const link = "https://papayacoders.in";
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Enter your number."
+                  ),
+                  validator: (value){
+                    if(value == null || value.isEmpty){
+                      return "Please enter your number.";
+                    }else if(value.length != 10){
+                      return "Please enter valid number.";
 
-                      launchUrl(
+                    }
+                    return null;
+                  },
+                  keyboardType: TextInputType.number,
+                ),
 
-                        Uri.parse(link),
-                        mode: LaunchMode.externalApplication
-                      );
-
-                    },
-                  ),);
-
-                  ScaffoldMessenger.of(context)
-                  .showSnackBar(snackbar);
-
-
-                },
-              ),
-              ElevatedButton(
-                child: Text("Call Us"),
-                onPressed: (){
-                  final snackbar = SnackBar(content:
-                  const Text("Contact : Papaya Coders"),
-                  action: SnackBarAction(
-                    label: "Call us",
-                    onPressed: (){
-
-
-                      launchUrl(
-
-                        Uri(scheme: 'tel', path: "9876543210"),
-                        mode: LaunchMode.externalApplication
-                      );
-
-                    },
-                  ),);
-
-                  ScaffoldMessenger.of(context)
-                  .showSnackBar(snackbar);
-
-
-                },
-              ),
-              ElevatedButton(
-                child: Text("Email us"),
-                onPressed: (){
-                  final snackbar = SnackBar(content:
-                  const Text("Email : Papaya Coders"),
-                  action: SnackBarAction(
-                    label: "Email",
-                    onPressed: (){
-
-                      const link = "https://youtube.com/papayacoders";
-
-                      launchUrl(
-
-                        Uri(scheme: 'mailto', path: "info@papayacoders.in"),
-                        mode: LaunchMode.externalApplication
-                      );
-
-                    },
-                  ),);
-
-                  ScaffoldMessenger.of(context)
-                  .showSnackBar(snackbar);
-
-
-                },
-              ),
-            ],
+                ElevatedButton(onPressed: (){
+                  if(formKey.currentState!.validate()){
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(
+                      const SnackBar(content: Text("Submit Data"))
+                    );
+                  }
+                }, child:
+                Text("Submit"))
+              ],
+            ),
           )
 
       ),
