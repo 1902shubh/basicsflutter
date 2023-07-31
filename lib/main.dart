@@ -63,52 +63,24 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
           padding: EdgeInsets.all(20.0),
-          child: Column(
-            children: [
+          child: ElevatedButton(
+            child: Text("Subscribe"),
+            onPressed: (){
+              final snackbar = SnackBar(content:
+              const Text("Subsribe : Papaya Coders"),
+              action: SnackBarAction(
+                label: "Subscribe",
+                onPressed: (){
 
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Enter your email"
-                ),
-                keyboardType: TextInputType.number,
-              ),
 
-              SizedBox(height: 20,),
-
-              TextFormField(
-                controller: myController,
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  hintText: "Enter your email"
-                ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-
-              SizedBox(height: 20,),
-
-              TextFormField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "Enter your email"
-                ),
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (text){
-                  print('papayacoders : Third field value is $text');
                 },
-              ),
+              ),);
 
-              TextButton(onPressed: (){
-                showDialog(context: context, builder: (context){
-                 return AlertDialog(
-                   content: Text(myController.text),
-                 );
-                });
-              }, child:
-              Text("Click Me"))
+              ScaffoldMessenger.of(context)
+              .showSnackBar(snackbar);
 
 
-            ],
+            },
           )
 
       ),
