@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -63,24 +64,86 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
           padding: EdgeInsets.all(20.0),
-          child: ElevatedButton(
-            child: Text("Subscribe"),
-            onPressed: (){
-              final snackbar = SnackBar(content:
-              const Text("Subsribe : Papaya Coders"),
-              action: SnackBarAction(
-                label: "Subscribe",
+          child: Column(
+            children: [
+              ElevatedButton(
+                child: Text("Subscribe"),
                 onPressed: (){
+                  final snackbar = SnackBar(content:
+                  const Text("Subsribe : Papaya Coders"),
+                  action: SnackBarAction(
+                    label: "Subscribe",
+                    onPressed: (){
+
+                      const link = "https://papayacoders.in";
+
+                      launchUrl(
+
+                        Uri.parse(link),
+                        mode: LaunchMode.externalApplication
+                      );
+
+                    },
+                  ),);
+
+                  ScaffoldMessenger.of(context)
+                  .showSnackBar(snackbar);
 
 
                 },
-              ),);
+              ),
+              ElevatedButton(
+                child: Text("Call Us"),
+                onPressed: (){
+                  final snackbar = SnackBar(content:
+                  const Text("Contact : Papaya Coders"),
+                  action: SnackBarAction(
+                    label: "Call us",
+                    onPressed: (){
 
-              ScaffoldMessenger.of(context)
-              .showSnackBar(snackbar);
+
+                      launchUrl(
+
+                        Uri(scheme: 'tel', path: "9876543210"),
+                        mode: LaunchMode.externalApplication
+                      );
+
+                    },
+                  ),);
+
+                  ScaffoldMessenger.of(context)
+                  .showSnackBar(snackbar);
 
 
-            },
+                },
+              ),
+              ElevatedButton(
+                child: Text("Email us"),
+                onPressed: (){
+                  final snackbar = SnackBar(content:
+                  const Text("Email : Papaya Coders"),
+                  action: SnackBarAction(
+                    label: "Email",
+                    onPressed: (){
+
+                      const link = "https://youtube.com/papayacoders";
+
+                      launchUrl(
+
+                        Uri(scheme: 'mailto', path: "info@papayacoders.in"),
+                        mode: LaunchMode.externalApplication
+                      );
+
+                    },
+                  ),);
+
+                  ScaffoldMessenger.of(context)
+                  .showSnackBar(snackbar);
+
+
+                },
+              ),
+            ],
           )
 
       ),
